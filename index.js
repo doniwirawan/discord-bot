@@ -60,8 +60,8 @@ client.on('messageCreate', async msg => {
         case "!nasa":
             msg.channel.send("Here's your nasa picture of the day!"); //Replies to user command
             const nasa_image = await getNasaPictures(); //fetches an URL from the API
+            msg.channel.send(`Title: ${nasa_image.title}`);
             msg.channel.send(nasa_image.hdurl); //send the image URL
-            msg.channel.send(`Title: ${nasa_image.title}`)
             msg.channel.send(`Explanation: ${nasa_image.explanation}`)
             break;
         case "!stop":
