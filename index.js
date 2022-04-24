@@ -1,6 +1,7 @@
 require('dotenv').config()
 const Discord = require('discord.js')
 const axios = require('axios');
+const oneLinerJoke = require('one-liner-joke')
 
 const client = new Discord.Client({ intents: ["GUILDS", "GUILD_MESSAGES"] })
 let interval;
@@ -40,6 +41,10 @@ async function getQuote() {
         console.log(err)
     }
 }
+const getJokes = () => {
+    const randomJoke = oneLinerJoke.getRandomJoke();
+    return randomJoke;
+}
 
 client.on('ready', () => {
     console.log(`logged in as ${client.user.tag}`)
@@ -67,6 +72,11 @@ client.on('messageCreate', async msg => {
         case "!stop":
             msg.channel.send("I have stopped eye reminders.");
             clearInterval(interval);
+            break;
+        case "!joke":
+            const jokes = getJokes();
+            console.log(jokes)
+            msg.channel.send(jokes.body);
             break;
         case "!eye":
             msg.channel.send("You are now subscribed to eye reminders.");
